@@ -30,13 +30,11 @@ $container['view'] = function ($c) {
     return $view;
 };
 
-// MySQL
+// MySQL container via dbal
 $container['db'] = function ($c) {
-
-    $settings = $c->get('settings')['db'];
-    $pdo = new PDO("mysql:host=" . $settings['host'] . ";dbname=" . $settings['dbname'] . ";port=" . $settings['port'] . ";charset=utf8",
-        $settings['user'], $settings['pass']);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    return $pdo;
+    $settings = $c->get('settings')['doctrine'];
+    $config = new \Doctrine\DBAL\Configuration();
+    $connectionParams = $settings["connection"];
+    $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+    return $conn;
 };

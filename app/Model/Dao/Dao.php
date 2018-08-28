@@ -1,5 +1,7 @@
 <?php
+
 namespace Model\Dao;
+
 use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
@@ -66,11 +68,30 @@ abstract class Dao
      * @copyright Ceres inc.
      * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
      * @since 2018/08/28
-     * @param array $param
+     * @param array $param Where区になるものを指定
+     * @param string $sort
+     * @param string $order
+     * @param int $limit
+     * @return array
      */
-    public function select(array $param)
+    public function select(array $param, $sort = "", $order = "asc", $limit = 10)
     {
+        //クエリビルダをインスタンス化
+        $queryBuilder = new QueryBuilder($this->db);
 
+        //ベースクエリを構築する
+        $queryBuilder
+            ->select('*')
+            ->from($this->_table_name);
+
+        //クエリ実行
+        $query = $queryBuilder->execute();
+
+        //その結果を取得する実行
+        $result = $query->FetchALL();
+
+        //結果を返送
+        return $result;
     }
 
     /**
