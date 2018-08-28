@@ -33,8 +33,8 @@ $app->post('/login/', function (Request $request, Response $response) {
     //結果が取得できたらログイン処理を行い、TOPへリダイレクト
     if($result){
 
-        //セッションにIDを登録
-        $this->session->set('user_id', $result["id"]);
+        //セッションにユーザー情報を登録
+        $this->session->set('user_info', $result);
 
         //TOPへリダイレクト
         return $response->withRedirect('/');

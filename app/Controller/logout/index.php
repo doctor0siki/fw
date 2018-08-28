@@ -3,7 +3,7 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-// ログイン画面コントローラ
+// ログアウトコントローラ
 $app->get('/logout/', function (Request $request, Response $response) {
 
     // Destroy session
@@ -11,6 +11,5 @@ $app->get('/logout/', function (Request $request, Response $response) {
 
     //TOPへリダイレクト
     return $response->withRedirect('/');
-
 
 });

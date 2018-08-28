@@ -5,7 +5,7 @@ use Slim\Http\Response;
 use Model\Dao\User;
 
 
-// ログインコントローラ
+// 会員登録ページコントローラ
 $app->get('/register/', function (Request $request, Response $response) {
 
     //GETされた内容を取得します。
@@ -16,7 +16,7 @@ $app->get('/register/', function (Request $request, Response $response) {
 
 });
 
-// ログインコントローラ
+// 会員登録処理コントローラ
 $app->post('/register/', function (Request $request, Response $response) {
 
     //POSTされた内容を取得します
