@@ -25,12 +25,6 @@ $app->post('/register/', function (Request $request, Response $response) {
     //ユーザーDAOをインスタンス化
     $user = new User($this->db);
 
-    $user->insert();
-
-
-
-
-
     // Render index view
     return $this->view->render($response, 'register/register_done.twig', $data);
 
