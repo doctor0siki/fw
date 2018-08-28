@@ -4,11 +4,12 @@ This is a sample web application using Slim3 for 2020 graduates intern event for
 
 # Library Using
 
-- Twig
-- doctorine
-- monolog
+- slim/twig-view
+- twig/extensions
+- doctorine/dbal
+- bryanjhv/slim-session
 - Bootstrap3
-
+ 
 # MVC Root
 
 - Model (DAO)
