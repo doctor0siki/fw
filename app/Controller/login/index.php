@@ -25,13 +25,20 @@ $app->post('/login/', function (Request $request, Response $response) {
     $user = new User($this->db);
 
     $param["email"] = $data["email"];
-    $param["password"] = $data["email"];
+    $param["password"] = $data["password"];
 
     //入力された情報から会員情報を取得
-    $result = $user->select($param, "", "", 1);
+    $result = $user->select($param, "", "", 1,false);
 
-    var_dump($result);
+    //結果が取得できたらログイン処理を行い、TOPへリダイレクト
+    if($result){
 
+        //セッションにIDを登録
+        $this->session->set('user_id', $result["id"]);
+
+        //TOPへリダイレクト
+        return $response->withRedirect('/');
+    }
 
     // Render index view
     return $this->view->render($response, 'login/login.twig', $data);

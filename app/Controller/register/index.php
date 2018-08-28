@@ -25,6 +25,12 @@ $app->post('/register/', function (Request $request, Response $response) {
     //ユーザーDAOをインスタンス化
     $user = new User($this->db);
 
+    //DBのカラムに無いものは削除
+    unset($data["password_re"]);
+
+    //DBに登録をする。戻り値は主キーのID
+    $id = $user->insert($data);
+
     // Render index view
     return $this->view->render($response, 'register/register_done.twig', $data);
 

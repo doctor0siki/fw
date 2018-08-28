@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: y-fukumoto
- * Date: 2018/08/28
- * Time: 10:55
- */
-namespace Model\Dao;
 
+namespace Model\Dao;
 
 /**
  * Class User
