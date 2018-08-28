@@ -1,4 +1,5 @@
 <?php
+
 namespace Model\Dao;
 
 /**
@@ -14,8 +15,7 @@ namespace Model\Dao;
  * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
  * @since 2018/06/15
  */
-
-class Dao
+abstract class Dao
 {
 
     /**
@@ -37,4 +37,26 @@ class Dao
     {
         $this->db = $db;
     }
+
+
+    public function select()
+    {
+
+    }
+
+    public function insert()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
+    }
+
 }

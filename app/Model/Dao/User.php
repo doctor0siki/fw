@@ -22,9 +22,4 @@ class User extends Dao
 {
 
 
-
-
-
-
-
 }

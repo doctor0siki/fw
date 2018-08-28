@@ -22,10 +22,11 @@ $app->post('/register/', function (Request $request, Response $response) {
     //POSTされた内容を取得します
     $data = $request->getParsedBody();
 
-    var_dump($this->db);
-
     //ユーザーDAOをインスタンス化
     $user = new User($this->db);
+
+    $user->insert();
+
 
 
 
