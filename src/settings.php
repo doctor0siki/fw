@@ -18,11 +18,11 @@ return [
         ],
         // DataBase(MySQL) settings
         'db' => [
-            'host' => '',
+            'host' => 'localhost',
             'port' => '3306',
             'user' => 'team-a',
             'pass' => 'team-a!',
-            'dbname' => 'team-a',
+            'dbname' => 'teama',
         ],
     ],
 ];

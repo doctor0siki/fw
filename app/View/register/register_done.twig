@@ -1,0 +1,43 @@
+{#レイアウトを継承します#}
+{% extends "layout/layout.twig" %}
+
+{#HTMLのタイトルを定義します。#}
+{% block title %}新規会員登録{% endblock %}
+
+{# このページに適用させたいスタイルシートを指定します #}
+{% block header_scripts_add %}
+    <style>
+        .box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .list-unstyled {
+            line-height: 2;
+        }
+
+        .mb10 {
+            margin: 0 0 10px 0;
+        }
+    </style>
+{% endblock %}
+
+{#ここから表示したい情報を記載します。#}
+{% block page_content %}
+    <div class="page-header text-center">
+        <h1>会員登録完了</h1>
+    </div>
+    <div class="container">
+        <div class="box">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#共通フッタとして追記したい情報を記載します。#}
+{% block footer_scripts_add %}{% endblock %}

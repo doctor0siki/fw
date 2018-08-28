@@ -43,6 +43,7 @@ class ComposerStaticInit3fa10fcab5578b5614493f6023b0fa59
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Model\\' => 6,
         ),
         'I' => 
         array (
@@ -114,6 +115,10 @@ class ComposerStaticInit3fa10fcab5578b5614493f6023b0fa59
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Model',
         ),
         'Interop\\Container\\' => 
         array (

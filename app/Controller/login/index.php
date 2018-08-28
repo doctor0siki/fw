@@ -2,7 +2,7 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-
+use Model\Dao\User;
 
 // ログイン画面コントローラ
 $app->get('/login/', function (Request $request, Response $response) {
