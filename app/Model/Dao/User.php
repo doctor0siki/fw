@@ -5,7 +5,8 @@ namespace Model\Dao;
 /**
  * Class User
  *
- * User Classです
+ * Userテーブルを扱う Classです
+ * DAO.phpに用意したCRUD関数以外を実装するときに、記載をします。
  *
  * @copyright Ceres inc.
  * @author y-fukumoto <y-fukumoto@ceres-inc.jp>

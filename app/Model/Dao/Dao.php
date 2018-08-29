@@ -7,15 +7,16 @@ use Doctrine\DBAL\Query\QueryBuilder;
 /**
  * Class Dao
  *
- * DB接続用の Classです
+ * DB接続及び汎用CRUDライブラリです
  *
  * 利用するには、
- * 1.src/settings.phpにDB接続情報を指定
- * 2.src/dependencies.phpにDB接続用のコンテナを作成
+ * 1.src/settings.phpのdoctrineにDB接続情報を指定
+ * 2.src/dependencies.phpにDB接続用のコンテナを$container['db']を作成
  * をしておきます。
+ *
  * @copyright Ceres inc.
  * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
- * @since 2018/06/15
+ * @since 2018/08/29
  */
 abstract class Dao
 {
@@ -40,7 +41,7 @@ abstract class Dao
      * @copyright Ceres inc.
      * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
      * @since 2018/08/28
-     * @param object $db データベース
+     * @param \Doctrine\DBAL\Connection $db データベース
      */
 
     public function __construct($db)
@@ -63,17 +64,17 @@ abstract class Dao
     /**
      * select Function
      *
-     *
+     * 情報を取得する汎用SELECT関数です
      *
      * @copyright Ceres inc.
      * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
      * @since 2018/08/28
-     * @param array $param
-     * @param string $sort
-     * @param string $order
-     * @param int $limit
-     * @param bool $fetch_all
-     * @return array|mixed
+     * @param array $param WHERE句として指定したい条件を連想配列で指定します。値に%があると、部分一致などもできます
+     * @param string $sort ソートしたいカラム名を指定します
+     * @param string $order 昇順=ASC 降順=DESCを指定します
+     * @param int $limit 取得件数を指定します。デフォルト10件
+     * @param bool $fetch_all false=一件のみ取得します true=全件取得します
+     * @return array|mixed 取得した情報を配列で返送します
      */
     public function select(array $param, $sort = "", $order = "ASC", $limit = 10, $fetch_all = false)
     {
@@ -89,7 +90,7 @@ abstract class Dao
         foreach ($param as $key => $val) {
             //値があれば処理をする
             if ($val) {
-                $queryBuilder->andWhere($key . " = :$key");
+                $queryBuilder->andWhere($key . " LIKE :$key");
                 $queryBuilder->setParameter(":$key", $val);
             }
         }
@@ -123,13 +124,15 @@ abstract class Dao
     /**
      * insert Function
      *
-     * 汎用挿入用関数
+     * 汎用INSERT関数です
+     *
+     * 連想配列で指定した情報を新規レコードとして挿入します
      *
      * @copyright Ceres inc.
      * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
      * @since 2018/08/28
-     * @param array $param
-     * @return int|bool 発番されれば番号を失敗したらfalseを返送
+     * @param array $param 挿入したいデータを連想配列で指定します
+     * @return int|bool 発番されればidを返送、失敗したらfalseを返送します
      */
     public function insert(array $param)
     {
@@ -163,31 +166,76 @@ abstract class Dao
     /**
      * update Function
      *
+     * 情報の更新を行う関数です
      *
+     * idというカラムは予約語で、各テーブルの主キーとなります。
      *
      * @copyright Ceres inc.
      * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
-     * @since 2018/08/28
-     * @param array $param
+     * @since 2018/08/29
+     * @param array $param 更新したい情報をid込みでセットします
      */
+
     public function update(array $param)
     {
+
+        //クエリビルダをインスタンス化
+        $queryBuilder = new QueryBuilder($this->db);
+
+        //ベースクエリを構築する
+        $queryBuilder
+            ->update($this->_table_name);
+
+        //引数の配列からWhere句を生成
+        foreach ($param as $key => $val) {
+
+            //id以外の場合
+            if ($key != "id") {
+                //値があれば処理をする
+                if ($val) {
+                    $queryBuilder->set($key, ":$key");
+                    $queryBuilder->setParameter(":$key", $val);
+                }
+            } else {
+                //idというカラム名の場合は、更新するIDを指定します
+                $queryBuilder->where($key, ":$key");
+                $queryBuilder->setParameter(":$key", $val);
+            }
+        }
+
+        //クエリ実行
+        $queryBuilder->execute();
 
     }
 
     /**
-     * delete Function
+     * update Function
      *
+     * 情報の削除を行う関数です
      *
+     * idのレコードを削除します
      *
      * @copyright Ceres inc.
      * @author y-fukumoto <y-fukumoto@ceres-inc.jp>
-     * @since 2018/08/28
-     * @param array $param
+     * @since 2018/08/29
+     * @param int $id 削除したいidをセットします
      */
 
-    public function delete(array $param)
+    public function delete(int $id)
     {
+        //クエリビルダをインスタンス化
+        $queryBuilder = new QueryBuilder($this->db);
+
+        //ベースクエリを構築する
+        $queryBuilder
+            ->delete($this->_table_name);
+
+        //指定されたidをセット
+        $queryBuilder->andWhere("id = :id");
+        $queryBuilder->setParameter(':id', $id);
+
+        //クエリ実行
+        $queryBuilder->execute();
 
     }
 

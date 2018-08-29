@@ -11,11 +11,11 @@ if (PHP_SAPI == 'cli-server') {
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Instantiate the app
+// APPを作ります
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
 
-//add slim session
+//SLIMのセッションを扱えるようにします
 $app->add(new \Slim\Middleware\Session([
     'name'        => 'slim_session',
     'autorefresh' => true,
