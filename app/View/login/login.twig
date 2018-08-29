@@ -6,20 +6,6 @@
 
 {# このページに適用させたいスタイルシートを指定します #}
 {% block header_scripts_add %}
-    <style>
-        .box {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .list-unstyled {
-            line-height: 2;
-        }
-
-        .mb10 {
-            margin: 0 0 10px 0;
-        }
-    </style>
 {% endblock %}
 
 {#ここから表示したい情報を記載します。#}
@@ -35,12 +21,17 @@
                         <form id="loginForm" method="POST" action="/login/">
                             <div class="form-group">
                                 <label for="email" class="control-label">ユーザーネーム</label>
-                                <input type="email" class="form-control" id="email" name="email" value="" required title="Please enter you username" placeholder="example@gmail.com">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ email }}" required title="Please enter you username" placeholder="example@gmail.com">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="control-label">パスワード</label>
                                 <input type="password" class="form-control" id="password" name="password" value="" required title="Please enter your password">
                             </div>
+                            {% if error %}
+                                <div class="form-group">
+                                    <div class="alert alert-danger" role="alert">{{ error }}</div>
+                                </div>
+                            {% endif %}
                             <button type="submit" class="btn btn-success btn-block">ログイン</button>
                         </form>
                     </div>
