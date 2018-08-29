@@ -209,7 +209,7 @@ abstract class Dao
     }
 
     /**
-     * update Function
+     * delete Function
      *
      * 情報の削除を行う関数です
      *
