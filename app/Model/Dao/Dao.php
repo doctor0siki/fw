@@ -53,7 +53,7 @@ abstract class Dao
         $ref = get_class($this);
 
         // MODEL\DAO\CLASS から CLASS名のみを取得する
-        $this->_table_name = pathinfo($ref)["basename"];
+        $this->_table_name = str_replace(__NAMESPACE__."\\","",$ref);
 
         //キャメルケースをスネークケースに変換
         $this->_table_name = preg_replace("/([A-Z])/", '_${1}', $this->_table_name);
