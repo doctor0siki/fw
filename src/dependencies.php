@@ -20,8 +20,8 @@ $container['logger'] = function ($c) {
 
 // Register Twig View helper
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig('app/View', []);
-
+    $settings = $c->get('settings')['renderer'];
+    $view = new \Slim\Views\Twig( $settings['template_path'], []);
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
