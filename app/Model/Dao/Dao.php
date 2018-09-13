@@ -195,8 +195,7 @@ abstract class Dao
                 $queryBuilder->setParameter(":$key", $val);
             } else {
                 //idというカラム名の場合は、更新するIDを指定します
-                $queryBuilder->where($key, ":$key");
-                $queryBuilder->setParameter(":$key", $val);
+                $queryBuilder->where($key . "=$val");
             }
         }
 
