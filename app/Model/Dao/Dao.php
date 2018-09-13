@@ -31,7 +31,7 @@ abstract class Dao
      * @var string _table_name 子クラスのテーブル名を格納します
      */
 
-    private $_table_name;
+    protected $_table_name;
 
     /**
      * Dao constructor.
@@ -53,7 +53,7 @@ abstract class Dao
         $ref = get_class($this);
 
         // MODEL\DAO\CLASS から CLASS名のみを取得する
-        $this->_table_name = str_replace(__NAMESPACE__."\\","",$ref);
+        $this->_table_name = str_replace(__NAMESPACE__ . "\\", "", $ref);
 
         //キャメルケースをスネークケースに変換
         $this->_table_name = preg_replace("/([A-Z])/", '_${1}', $this->_table_name);
@@ -191,11 +191,8 @@ abstract class Dao
 
             //id以外の場合
             if ($key != "id") {
-                //値があれば処理をする
-                if ($val) {
-                    $queryBuilder->set($key, ":$key");
-                    $queryBuilder->setParameter(":$key", $val);
-                }
+                $queryBuilder->set($key, ":$key");
+                $queryBuilder->setParameter(":$key", $val);
             } else {
                 //idというカラム名の場合は、更新するIDを指定します
                 $queryBuilder->where($key, ":$key");
