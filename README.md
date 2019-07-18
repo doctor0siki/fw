@@ -8,7 +8,7 @@ This is a sample web application using Slim3 for 2020 graduates intern event for
 - twig/extensions
 - doctorine/dbal
 - bryanjhv/slim-session
-- Bootstrap3
+- Bootstrap4
  
 # MVC Root
 
