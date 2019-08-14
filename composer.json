@@ -20,7 +20,8 @@
         "twig/twig": "v1.35.3",
         "twig/extensions": "v1.5.1",
         "doctrine/dbal": "v2.8.0",
-        "bryanjhv/slim-session": "~3.0"
+        "bryanjhv/slim-session": "~3.0",
+        "larapack/dd": "1.1"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"

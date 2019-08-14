@@ -10,6 +10,7 @@ if (PHP_SAPI == 'cli-server') {
 }
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/larapack/dd/src/helper.php';
 
 // APPを作ります
 $settings = require __DIR__ . '/../src/settings.php';
