@@ -21,11 +21,12 @@ $container['logger'] = function ($c) {
 // Register Twig View helper
 $container['view'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
-    $view = new \Slim\Views\Twig( $settings['template_path'], []);
+    $view = new \Slim\Views\Twig( $settings['template_path'], ['debug' => true]);
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
+    $view->addExtension(new Twig_Extension_Debug());
     $view->getEnvironment()->addGlobal('session', $_SESSION);
     return $view;
 };
