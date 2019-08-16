@@ -32,5 +32,11 @@
                 </li>
             {% endif %}
         </ul>
+        {# ログインしてたらユーザー名を出力する#}
+        {% if session.user_info.name %}
+            <ul class="navbar-nav text-right">
+                {{ session.user_info.name }}さん
+            </ul>
+        {% endif %}
     </div><!-- /.navbar-collapse -->
 </nav>
